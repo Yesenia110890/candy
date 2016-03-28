@@ -13,6 +13,6 @@ let customerSchema = new Schema({
     email: String
 }, { collection: 'customers' });
 
-let Customer = mongoose.model('Customer', productSchema);
+let Customer = mongoose.model('Customer', customerSchema);
 
 module.exports = Customer;
