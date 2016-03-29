@@ -5,8 +5,8 @@ let Schema = mongoose.Schema;
 
 let customerSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
-    first_name: String,
-    last_name: String,
+    firstName: String,
+    lastName: String,
     age: Number,
     address: String,
     phone: String,

@@ -2,13 +2,13 @@
 
 module.exports = {
     app: {
-        name: 'arteesan-development',
+        name: 'candy-development',
         url: 'http://127.0.0.1:3000'
     },
     port: process.env.PORT || 3000,
 
     dbMongo: {
-        uri: 'mongodb://localhost:27017/arteesan-dev',
+        uri: 'mongodb://localhost:27017/candy',
         options: {
             user: '',
             pass: ''
