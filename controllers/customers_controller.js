@@ -26,6 +26,8 @@ exports.createCustomer = function(request, response, next) {
                 detail: 'Olvidaste uno o mas parametros en la peticion'
             }
         });
+
+        return next();
     }
 
     let newCustomer = new Customer({
@@ -48,6 +50,8 @@ exports.createCustomer = function(request, response, next) {
                 detail: error
             }
         });
+
+        return next();
     });
 }
 
