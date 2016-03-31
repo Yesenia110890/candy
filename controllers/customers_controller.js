@@ -40,7 +40,13 @@ exports.createCustomer = function(request, response, next) {
     });
 
     newCustomer.save().then(savedUser => {
-        response.send(200, savedUser);
+        let responseObject = {
+               status: 200,
+               user: savedUser
+        }
+
+        response.send(200, responseObject);
+
         return next();
     }).catch(error => {
         logger.error(`create customer: ${error}`);
