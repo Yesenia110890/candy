@@ -92,8 +92,56 @@ exports.getCustomers = function(request, response, next) {
 }
 
 exports.getCustomer = function(request, response, next) {
-    response.send(200, {OK: 'getCustomer'});
-    return next();
+    const logger = request.log;
+
+    let customerQuery = {
+        email: request.params.email
+    };
+
+    Customer.findOne(customerQuery).exec().then(customer => {
+        /*
+         * Este if se ejecuta si la busqueda del cliente no arroja resultados,
+         * es decir, que el cliente no existe, entonces devolvemos un 404.
+         */
+        if (!customer) {
+            logger.error(`delete customer: customer not found`);
+            response.send(404, {
+                status: 404,
+                error: {
+                    detail: 'Cliente no encontrado'
+                }
+            });
+
+            /*
+             * Esta linea nos manda a la clausula catch, para que no se
+             * siga ejecutando lo demas.
+             */
+            throw new Error();
+        }
+
+        /*
+         * En este punto, no se entro al if, entonces significa que si se
+         * encontro al usuario y lo devolvemos en la respuesta.
+         */
+
+         let responseObject = {
+             status: 200,
+             customer: customer
+         };
+
+         response.send(200, responseObject);
+         return next();
+    }).catch(error => {
+        logger.error(`get customer: ${error}`);
+        response.send(500, {
+            error: {
+                status: 500,
+                detail: error
+            }
+        });
+
+        return next();
+    });
 }
 
 exports.deleteCustomer = function(request, response, next) {
