@@ -39,10 +39,10 @@ exports.createCustomer = function(request, response, next) {
         email       : request.body.email
     });
 
-    newCustomer.save().then(savedUser => {
+    newCustomer.save().then(savedCustomer => {
         let responseObject = {
                status: 200,
-               user: savedUser
+               customer: savedCustomer
         }
 
         response.send(200, responseObject);
