@@ -113,7 +113,7 @@ exports.deleteCustomer = function(request, response, next) {
             response.send(404, {
                 status: 404,
                 error: {
-                    detail: 'Customer not found'
+                    detail: 'Cliente no encontrado'
                 }
             });
 
