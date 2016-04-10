@@ -41,11 +41,11 @@ exports.createCustomer = function(request, response, next) {
 
     newCustomer.save().then(savedCustomer => {
         let responseObject = {
-               status: 200,
+               status: 201,
                customer: savedCustomer
         }
 
-        response.send(200, responseObject);
+        response.send(201, responseObject);
 
         return next();
     }).catch(error => {
