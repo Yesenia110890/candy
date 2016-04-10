@@ -60,7 +60,27 @@ exports.createEvent = function(request, response, next) {
 }
 
 exports.getEvents = function(request, response, next) {
-    response.send(200, { OK: 'getEvents' });
+    const logger = request.log;
+
+    Event.find({}).exec().then(events => {
+        let responseObject = {
+            status: 200,
+            events: events
+        };
+
+        response.send(200, responseObject);
+        return next();
+    }).catch(error => {
+        logger.error(`delete customer: ${error}`);
+        response.send(500, {
+            status: 500,
+            error: {
+                detail: error
+            }
+        });
+
+        return next();
+    });
 }
 
 exports.getEvent = function(request, response, next) {
