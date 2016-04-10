@@ -72,5 +72,47 @@ exports.patchEvent = function(request, response, next) {
 }
 
 exports.deleteEvent = function(request, response, next) {
-    response.send(200, { OK: 'deleteEvent' });
+    const logger = request.log;
+
+
+    let eventQuery = {
+        _id: request.params.eventId
+    };
+
+    Event.findOne(eventQuery).exec().then(event => {
+
+        if (!event) {
+            logger.error('delete event: event not found');
+            response.send(404, {
+                status:404,
+                error: {
+                    detail: 'Evento no encontrado'
+                }
+            });
+
+            throw new Error();
+        }
+
+        return event.remove();
+
+    }).then(deletedEvent => {
+
+        let responseObject = {
+            status: 200,
+            event: deletedEvent
+        };
+
+        response.send(200, responseObject);
+        return next();
+    }).catch(error => {
+        logger.error(`delete event: ${error}`);
+        response.send(500, {
+            status:500,
+            error: {
+                detail: error
+            }
+        });
+
+        return next();
+    });
 }
