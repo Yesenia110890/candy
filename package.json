@@ -1,12 +1,12 @@
 {
-  "name": "arteesan_api",
+  "name": "candy-api",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js |./node_modules/.bin/bunyan"
   },
-  "author": "Arteesan",
+  "author": "Yesenia Isabel Latorre Flor",
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.5.1",
