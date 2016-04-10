@@ -95,8 +95,10 @@ exports.getEvent = function(request, response, next) {
         _id: request.params.eventId
     };
 
-    Event.findOne(eventQuery).exec().then(event =>{
-
+    Event.findOne(eventQuery)
+         .populate('owner', CUSTOMER_POPULATE_STRING)
+         .exec()
+         .then(event =>{
         if (!event) {
             logger.error('delete event: event not found');
             response.send(404, {
