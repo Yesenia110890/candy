@@ -134,8 +134,8 @@ exports.getCustomer = function(request, response, next) {
     }).catch(error => {
         logger.error(`get customer: ${error}`);
         response.send(500, {
+            status: 500,
             error: {
-                status: 500,
                 detail: error
             }
         });

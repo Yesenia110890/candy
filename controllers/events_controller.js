@@ -84,7 +84,43 @@ exports.getEvents = function(request, response, next) {
 }
 
 exports.getEvent = function(request, response, next) {
-    response.send(200, { OK: 'getEvent' });
+    const logger = request.log;
+
+    let eventQuery = {
+        _id: request.params.eventId
+    };
+
+    Event.findOne(eventQuery).exec().then(event =>{
+
+        if (!event) {
+            logger.error('delete event: event not found');
+            response.send(404, {
+                status: 404,
+                error: {
+                    detail: 'Evento no encontrado'
+                }
+            });
+
+            throw new Error();
+        }
+
+        let responseObject = {
+            status: 200,
+            event: event
+        };
+
+        response.send(200, responseObject);
+        return next();
+    }).catch(error => {
+        logger.error(`get Event: ${error}`);
+        response.send(500, {
+            status: 500,
+            error: {
+                detail: error
+            }
+        });
+        return next();
+    });
 }
 
 exports.patchEvent = function(request, response, next) {
