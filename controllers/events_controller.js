@@ -8,6 +8,8 @@ const EVENT_EXPECTED_PARAMS = [
     'event_date'
 ];
 
+const CUSTOMER_POPULATE_STRING = 'firstName lastName age address phone email';
+
 exports.createEvent = function(request, response, next) {
     const logger = request.log;
 
@@ -62,7 +64,10 @@ exports.createEvent = function(request, response, next) {
 exports.getEvents = function(request, response, next) {
     const logger = request.log;
 
-    Event.find({}).exec().then(events => {
+    Event.find({})
+         .populate('owner', CUSTOMER_POPULATE_STRING)
+         .exec()
+         .then(events => {
         let responseObject = {
             status: 200,
             events: events

@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 
 let eventSchema = new Schema({
     created_at: { type: Date, default: Date.now },
-    owner: { type: Schema.Types.ObjectId, ref: 'Client' },
+    owner: { type: Schema.Types.ObjectId, ref: 'Customer' },
     event_date: Date,
     description: { type: String, default: '' },
     products: [ {type: Array, default: []} ]
