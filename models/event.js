@@ -8,7 +8,7 @@ let eventSchema = new Schema({
     owner: { type: Schema.Types.ObjectId, ref: 'Customer' },
     event_date: Date,
     description: { type: String, default: '' },
-    products: [ {type: Array, default: []} ]
+    products: { type: Array, default: [] }
 }, { collection: 'events' });
 
 let Event = mongoose.model('Event', eventSchema);
