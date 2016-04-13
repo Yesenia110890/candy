@@ -184,14 +184,14 @@ exports.getEventAvailability = function(request, response, next) {
     const logger = request.log;
 
     let availabilityQuery = {
-        event_date: request.query.date
+        event_date: request.params.date
     };
 
     Event.findOne(availabilityQuery)
          .exec()
          .then(foundEvent =>{
         if (foundEvent) {
-            logger.error('delete event: event not found');
+            logger.error('get availability: event available');
             response.send(404, {
                 status: 404,
                 error: {
@@ -210,7 +210,7 @@ exports.getEventAvailability = function(request, response, next) {
         response.send(200, responseObject);
         return next();
     }).catch(error => {
-        logger.error(`get Event: ${error}`);
+        logger.error(`get Availability: ${error}`);
         response.send(500, {
             status: 500,
             error: {
