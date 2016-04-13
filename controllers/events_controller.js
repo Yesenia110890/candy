@@ -179,3 +179,44 @@ exports.deleteEvent = function(request, response, next) {
         return next();
     });
 }
+
+exports.getEventAvailability = function(request, response, next) {
+    const logger = request.log;
+
+    let availabilityQuery = {
+        event_date: request.query.date
+    };
+
+    Event.findOne(availabilityQuery)
+         .exec()
+         .then(foundEvent =>{
+        if (foundEvent) {
+            logger.error('delete event: event not found');
+            response.send(404, {
+                status: 404,
+                error: {
+                    detail: 'No Disponible'
+                }
+            });
+
+            throw new Error();
+        }
+
+        let responseObject = {
+            status: 200,
+            detail: 'Disponible'
+        };
+
+        response.send(200, responseObject);
+        return next();
+    }).catch(error => {
+        logger.error(`get Event: ${error}`);
+        response.send(500, {
+            status: 500,
+            error: {
+                detail: error
+            }
+        });
+        return next();
+    });
+}

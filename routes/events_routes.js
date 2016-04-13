@@ -6,6 +6,7 @@ module.exports = function(server) {
     server.post('/events', eventsController.createEvent);
     server.get('/events', eventsController.getEvents);
     server.get('/events/:eventId', eventsController.getEvent);
+    server.get('/events/availability/:date', eventsController.getEventAvailability);
     server.patch('/events/:eventId', eventsController.patchEvent);
     server.del('/events/:eventId', eventsController.deleteEvent);
 }
