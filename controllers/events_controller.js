@@ -184,7 +184,7 @@ exports.getEventAvailability = function(request, response, next) {
     const logger = request.log;
 
     let availabilityQuery = {
-        event_date: request.params.date
+        event_date: new Date(request.params.date)
     };
 
     Event.findOne(availabilityQuery)
