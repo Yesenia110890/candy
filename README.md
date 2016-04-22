@@ -1,4 +1,4 @@
-# Arteesan API
+# Candy API
 
 ## Tecnologías
 - Node v4.2
